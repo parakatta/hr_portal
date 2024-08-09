@@ -1,0 +1,135 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+model User {
+  id          String    @id @default(uuid())
+  name        String
+  email       String    @unique
+  password    String
+  role        String    @default("HR")
+  isProfileSetup Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  hrProfile   HRProfile?
+}
+
+model HRProfile {
+  id            String    @id @default(uuid())
+  userId        String    @unique
+  companyName   String
+  companyLogo   String?
+  websiteUrl    String?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  jobs          Job[]
+  user          User      @relation(fields: [userId], references: [id])
+  titles        Title[]
+  metaDatas     MetaData[]
+  languages     Language[]
+  timezones     Timezone[]
+  announcements Announcement[]
+  designs       Design[]
+  navigations   Navigation[]
+}
+
+model Job {
+  id             String   @id @default(uuid())
+  hrProfileId    String
+  title          String
+  salary         String?
+  location       String?
+  description    String?
+  requirements   String?
+  responsibilities String?
+  type           String?
+  websiteUrl     String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  hrProfile      HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model Title {
+  id           String   @id @default(uuid())
+  hrProfileId  String
+  title        String
+  description  String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  hrProfile    HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model MetaData {
+  id              String   @id @default(uuid())
+  hrProfileId     String
+  metaTitle       String
+  metaDescription String
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+  hrProfile       HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model Language {
+  id           String   @id @default(uuid())
+  hrProfileId  String
+  language     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  hrProfile    HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model Timezone {
+  id           String   @id @default(uuid())
+  hrProfileId  String
+  timezone     String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  hrProfile    HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model Announcement {
+  id          String   @id @default(uuid())
+  hrProfileId String
+  announcement String
+  bgColor     String
+  textColor   String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  hrProfile   HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model Design {
+  id           String   @id @default(uuid())
+  hrProfileId  String
+  buttonColor  String
+  buttonHover  String
+  logoDark     String
+  faviconLogo  String
+  businessLogo String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  hrProfile    HRProfile @relation(fields: [hrProfileId], references: [id])
+}
+
+model Navigation {
+  id           String   @id @default(uuid())
+  hrProfileId  String
+  page         String
+  pageUrl      String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  hrProfile    HRProfile @relation(fields: [hrProfileId], references: [id])
+}
