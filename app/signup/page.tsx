@@ -7,21 +7,26 @@ export default function SignupPage() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const router = useRouter();
 
   const handleSignup = async (e: any) => {
     e.preventDefault();
 
-    const res = await fetch("app/api/auth/signup.js", {
+    const res = await fetch("/api/auth/signup", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({ name, email, password }),
     });
 
     if (res.ok) {
-      router.push("/login");
+      setMessage(
+        "Sign-up successful! Please check your email to confirm your account."
+      );
     } else {
-      alert("Signup failed");
+      setMessage("Failed to sign up.");
     }
   };
 
@@ -100,6 +105,7 @@ export default function SignupPage() {
           </a>
         </div>
       </form>
+      {message && <p>{message}</p>}
     </div>
   );
 }

@@ -13,7 +13,7 @@ import { faOpencart } from "@fortawesome/free-brands-svg-icons/faOpencart";
 
 const Sidebar: React.FC = () => {
   return (
-    <aside className="w-64 border-r text-black flex flex-col min-h-screen bg-white fixed top-0 left-0">
+    <aside className="w-64 border-r  flex flex-col min-h-screen  fixed top-0 left-0">
       <div className="p-4 font-bold text-2xl">HR Portal</div>
       <nav className="flex-1 px-4">
         <div className="mt-4">
@@ -21,7 +21,7 @@ const Sidebar: React.FC = () => {
             <li className="mt-2">
               <Link
                 href="/dashboard"
-                className="flex items-center py-2 px-4 hover:bg-gray-200 rounded"
+                className="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 rounded"
               >
                 <FontAwesomeIcon
                   icon={faDashboard}
@@ -32,7 +32,7 @@ const Sidebar: React.FC = () => {
             </li>
             <li className="mt-2">
               <Link legacyBehavior href="">
-                <a className="flex items-center py-2 px-4 hover:bg-gray-200 rounded">
+                <a className="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <FontAwesomeIcon
                     icon={faOpencart}
                     className={styles.iconStyle}
@@ -43,7 +43,7 @@ const Sidebar: React.FC = () => {
             </li>
             <li className="mt-2">
               <Link legacyBehavior href="/jobs">
-                <a className="flex items-center py-2 px-4 hover:bg-gray-200 rounded">
+                <a className="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <FontAwesomeIcon
                     icon={faBriefcase}
                     className={styles.iconStyle}
@@ -54,7 +54,7 @@ const Sidebar: React.FC = () => {
             </li>
             <li className="mt-2">
               <Link legacyBehavior href="/settings">
-                <a className="flex items-center py-2 px-4 hover:bg-gray-200 rounded">
+                <a className="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <FontAwesomeIcon icon={faGear} className={styles.iconStyle} />
                   Settings
                 </a>
@@ -62,7 +62,7 @@ const Sidebar: React.FC = () => {
             </li>
             <li className="mt-2">
               <Link legacyBehavior href="/billing">
-                <a className="flex items-center py-2 px-4 hover:bg-gray-200 rounded">
+                <a className="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <FontAwesomeIcon
                     icon={faNoteSticky}
                     className={styles.iconStyle}
@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
             </li>
             <li className="mt-2">
               <Link legacyBehavior href="/members">
-                <a className="flex items-center py-2 px-4 hover:bg-gray-200 rounded">
+                <a className="flex items-center py-2 px-4 hover:bg-gray-200 dark:hover:bg-gray-700 rounded">
                   <FontAwesomeIcon
                     icon={faUsers}
                     className={styles.iconStyle}

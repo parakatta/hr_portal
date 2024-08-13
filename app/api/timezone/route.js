@@ -62,7 +62,7 @@ export async function POST(request) {
 
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userId = decodedToken.id;
-    const { timezone } = data;
+    const { timezoneId, timezone } = data;
 
     const hrProfile = await prisma.hRProfile.findUnique({
       where: { userId: userId },
@@ -77,7 +77,7 @@ export async function POST(request) {
     const hrProfileId = hrProfile.id;
 
     const updatedTitle = await prisma.timezone.update({
-      where: { hrProfileId: hrProfileId },
+      where: { id: timezoneId },
       data: {
         timezone: timezone,
         updatedAt: new Date(),

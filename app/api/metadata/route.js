@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import { prisma } from "@/lib/prisma";
 
-const SECRET_KEY = process.env.JWT_SECRET; 
+const SECRET_KEY = process.env.JWT_SECRET;
 
 export async function GET(request) {
   try {
@@ -32,10 +32,9 @@ export async function GET(request) {
     const meta = await prisma.metaData.findMany({
       where: { hrProfileId: hrProfileId },
     });
-
     return NextResponse.json(
       {
-        id: meta.id,
+        id: meta[0].id,
         metaTitle: meta[0].metaTitle,
         metaDescription: meta[0].metaDescription,
       },
@@ -63,7 +62,7 @@ export async function POST(request) {
 
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userId = decodedToken.id;
-    const { metaTitle, metaDescription } = data;
+    const { metaId, metaTitle, metaDescription } = data;
 
     const hrProfile = await prisma.hRProfile.findUnique({
       where: { userId: userId },
@@ -78,7 +77,7 @@ export async function POST(request) {
     const hrProfileId = hrProfile.id;
 
     const updatedTitle = await prisma.metaData.update({
-      where: { hrProfileId: hrProfileId }, 
+      where: { id: metaId },
       data: {
         metaTitle: metaTitle,
         metaDescription: metaDescription,

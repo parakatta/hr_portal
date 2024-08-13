@@ -74,7 +74,7 @@ export default function LoginPage() {
         </div>
         <div className="mt-3 mb-4">
           <a
-            href="/forgot-password"
+            href="/login/forgot-password"
             className="text-blue-500 text-sm text-center"
           >
             Forgot password?

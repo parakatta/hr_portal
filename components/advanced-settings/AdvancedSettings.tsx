@@ -16,11 +16,15 @@ const languages = ["en", "es", "fr", "de", "zh", "ja", "ru", "ar"];
 
 const AdvancedSettings: React.FC = () => {
   const [settings, setSettings] = useState({
+    titleId:"",
     title: "",
     description: "",
+    metaId:"",
     metaTitle: "",
     metaDescription: "",
+    languageId:"",
     language: "",
+    timezoneId:"",
     timezone: "",
   });
   const [others, setOthers] = useState({
@@ -70,21 +74,21 @@ const AdvancedSettings: React.FC = () => {
           headers: { Authorization: `Bearer ${token}` },
         });
         const titleData = await titleRes.json();
-        console.log("titledata", titleData);
+        //console.log("titledata", titleData);
 
         // Fetch meta data
         const metaRes = await fetch("/api/metadata", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const metaData = await metaRes.json();
-        console.log("metadata", metaData.metaDescription);
+       // console.log("metadata", metaData);
 
         // Fetch language
         const languageRes = await fetch("/api/language", {
           headers: { Authorization: `Bearer ${token}` },
         });
         const languageData = await languageRes.json();
-        console.log("lang", languageData);
+        //console.log("lang", languageData);
 
         // Fetch timezone
         const timezoneRes = await fetch("/api/timezone", {
@@ -106,11 +110,15 @@ const AdvancedSettings: React.FC = () => {
 
         // Set all settings
         setSettings({
+          titleId: titleData.id,
           title: titleData.title,
           description: titleData.description,
+          metaId: metaData.id,
           metaTitle: metaData.metaTitle,
           metaDescription: metaData.metaDescription,
+          languageId: languageData.id,
           language: languageData.language,
+          timezoneId: timezoneData.id,
           timezone: timezoneData.timezone,
         });
         console.log(settings);
@@ -162,21 +170,23 @@ const AdvancedSettings: React.FC = () => {
       switch (section) {
         case "title":
           saveSettings("title", {
+            titleId:settings.titleId,
             title: settings.title,
             description: settings.description,
           });
           break;
         case "meta":
           saveSettings("metadata", {
+            metaId:settings.metaId,
             metaTitle: settings.metaTitle,
             metaDescription: settings.metaDescription,
           });
           break;
         case "language":
-          saveSettings("language", { language: settings.language });
+          saveSettings("language", { languageId:settings.languageId,language: settings.language });
           break;
         case "timezone":
-          saveSettings("timezone", { timezone: settings.timezone });
+          saveSettings("timezone", { timezoneId:settings.timezoneId,timezone: settings.timezone });
           break;
         /*  case "staff":
           saveSettings("staff", { staffMembers: settings.staffMembers });

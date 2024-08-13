@@ -9,9 +9,9 @@ function Page() {
   return (
     <div className="flex">
       <Sidebar />
-      <div className="ml-64 bg-white w-full">
+      <div className="ml-64 w-full">
         <TopBar />
-        <div className="min-h-screen bg-white p-4">
+        <div className="min-h-screen p-4">
           <h1 className={styles.pageHeading}>Billings</h1>
           </div>
       </div>

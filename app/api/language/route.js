@@ -61,7 +61,7 @@ export async function POST(request) {
 
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userId = decodedToken.id;
-    const { language } = data;
+    const { languageId, language } = data;
 
     const hrProfile = await prisma.hRProfile.findUnique({
       where: { userId: userId },
@@ -76,7 +76,7 @@ export async function POST(request) {
     const hrProfileId = hrProfile.id;
 
     const updatedLang = await prisma.language.update({
-      where: { hrProfileId: hrProfileId },
+      where: { id: languageId },
       data: {
         language: language,
         updatedAt: new Date(),

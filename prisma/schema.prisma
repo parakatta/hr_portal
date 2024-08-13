@@ -21,6 +21,12 @@ model User {
   email       String    @unique
   password    String
   role        String    @default("HR")
+  passwordResetCode  String?  
+  passwordResetToken String?  
+  passwordResetExpires DateTime?
+  confirmationToken  String?
+  confirmationTokenExpires DateTime?
+  isEmailConfirmed Boolean   @default(false)
   isProfileSetup Boolean   @default(false)
   createdAt   DateTime  @default(now())
   updatedAt   DateTime  @updatedAt

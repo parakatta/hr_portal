@@ -31,8 +31,6 @@ export async function GET(request) {
     const titles = await prisma.title.findMany({
       where: { hrProfileId: hrProfileId },
     });
-    console.log(titles);
-
     return NextResponse.json(
       {
         id: titles[0].id,
@@ -63,7 +61,7 @@ export async function POST(request) {
 
     const decodedToken = jwt.verify(token, SECRET_KEY);
     const userId = decodedToken.id;
-    const { title, description } = data;
+    const { titleId, title, description } = data;
 
     const hrProfile = await prisma.hRProfile.findUnique({
       where: { userId: userId },
@@ -78,7 +76,7 @@ export async function POST(request) {
     const hrProfileId = hrProfile.id;
 
     const updatedTitle = await prisma.title.update({
-      where: { hrProfileId: hrProfileId },
+      where: { id: titleId },
       data: {
         title: title,
         description: description,
